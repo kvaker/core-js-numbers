@@ -134,7 +134,7 @@ function getAngleBetweenVectors(x1, y1, x2, y2) {
  *     0     => 0
  */
 function getLastDigit(value) {
-  return value.toString()[value.toString().length - 1];
+  return value % 10;
 }
 
 /**
@@ -532,7 +532,8 @@ function getFloatOnString(str) {
  * '10', 8              => 8
  */
 function getIntegerOnString(str, base) {
-  return parseInt(str, base);
+  const parsedInteger = Number.parseInt(str, base);
+  return Number.isNaN(parsedInteger) ? NaN : parsedInteger;
 }
 
 /**
@@ -621,7 +622,8 @@ function getIntegerPartNumber(number) {
  * 0.1, 0.2, 0.3 => 0.6
  */
 function getSumOfNumbers(x1, x2, x3) {
-  return x1 + x2 + x3;
+  const sum = x1 + x2 + x3;
+  return Number(sum.toFixed(1)); // Round the sum to 1 decimal place
 }
 
 /**
@@ -667,7 +669,11 @@ function getRandomInteger(min, max) {
  * 3, 4 => 5
  */
 function getHypotenuse(a, b) {
-  return Math.sqrt(a * a + b * b);
+  if (typeof a !== 'number' || typeof b !== 'number' || a <= 0 || b <= 0) {
+    return -1; // Invalid input, return -1
+  }
+  const hypotenuse = Math.sqrt(a * a + b * b);
+  return hypotenuse;
 }
 
 /**
@@ -684,7 +690,7 @@ function getHypotenuse(a, b) {
  * 15 => 8
  */
 function getCountOfOddNumbers(number) {
-  return Math.floor((number + 1) / 2);
+  return Math.ceil((number + 1) / 2);
 }
 
 module.exports = {
